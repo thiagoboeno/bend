@@ -13,11 +13,11 @@ Bend é um sistema/interface de rede social, incluido sistema de seguir/dessegui
 
 
 
-## Installation
+## Instalação
 
 Tenha o [Node.js](https://nodejs.org/en/) e o [Npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) instalados.
 
-Com os demais instalados a dependencias do `package.json` precisam ser instaladas a partir do commando
+Com os demais instalados, as dependencias do `package.json` precisam ser instaladas a partir do commando:
 
 #### NPM
 ```bash
