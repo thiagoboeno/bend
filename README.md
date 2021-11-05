@@ -16,7 +16,7 @@
 
 ## Installation
 
-Tenha o [Node.js](https://nodejs.org/en/) e o [npm registry](https://www.npmjs.com/) ou [yarn](https://www.npmjs.com/) instalados.
+Tenha o [Node.js](https://nodejs.org/en/) e o [Npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) instalados.
 
 Com os demais instalados a dependencias do `package.json` precisam ser instaladas a partir do commando
 
