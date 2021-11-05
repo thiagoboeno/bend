@@ -10,7 +10,7 @@
 <!--   ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white) -->
 
 
-## Bend é um sistema/interface de rede social, incluido sistema de seguir/desseguir. postagens, chat e etc, feito com Express.js
+### Bend é um sistema/interface de rede social, incluido sistema de seguir/desseguir. postagens, chat e etc, feito com Express.js
 
 
 
