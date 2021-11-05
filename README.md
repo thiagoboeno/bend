@@ -20,12 +20,12 @@ Tenha o [Node.js](https://nodejs.org/en/) e o [npm registry](https://www.npmjs.c
 
 Com os demais instalados a dependencias do `package.json` precisam ser instaladas a partir do commando
 
-## NPM
+#### NPM
 ```bash
 $ npm install
 ```
 
-## YARN
+#### YARN
 ```bash
 $ yarn
 ```
