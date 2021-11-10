@@ -38,7 +38,9 @@ $ yarn
 - Models de User e Post (MongoDB)
 
 ### A ser implementado:
+- Models de Conversation e Mensage (MongoDB)
 - Sistema de chat relatime com socket.io
 - Listagem dos posts relativo ao usuário (timeline do perfil selecionado)
+- Deletar todos os posts e dar unfollow quando um usuario é excluido
 - Autenticação com JWT ou oAuth
 - Notificações ao usuário ser seguido ou ter um post curtido
