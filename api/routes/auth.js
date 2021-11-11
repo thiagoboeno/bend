@@ -14,7 +14,9 @@ router.post('/register', async (req, res) => {
     });
 
     const user = await newUser.save();
-    return res.status(200).json(user);
+    const { password, ...other } = user._doc;
+
+    return res.status(200).json(other);
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -27,8 +29,9 @@ router.post('/login', async (req, res) => {
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return res.status(400).json('Incorrect password');
+    const { password, ...other } = user._doc;
 
-    return res.status(200).json(user);
+    return res.status(200).json(other);
   } catch (error) {
     return res.status(500).json(error);
   }
