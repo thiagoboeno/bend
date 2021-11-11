@@ -35,12 +35,10 @@ $ yarn
 - Sistema de register/login básicos
 - Crud dos posts, like e dislike, timeline ordenada por mais recente ao mais antigo
 - Sistema de seguir e desseguir usuários
-- Models de User e Post (MongoDB)
+- Models de User, Post, Conversation e Message (MongoDB)
 
 ### A ser implementado:
-- Models de Conversation e Mensage (MongoDB)
 - Sistema de chat relatime com socket.io
-- Listagem dos posts relativo ao usuário (timeline do perfil selecionado)
 - Deletar todos os posts e dar unfollow quando um usuario é excluido
 - Autenticação com JWT ou oAuth
 - Notificações ao usuário ser seguido ou ter um post curtido
