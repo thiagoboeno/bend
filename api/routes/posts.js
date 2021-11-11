@@ -43,15 +43,16 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    
     if (post.userId === req.body.userId) {
       await post.deleteOne();
 
-      res.status(200).json('Your post has been deleted');
+      return res.status(200).json('Your post has been deleted');
     } else {
-      res.status(403).json('You can delete only your post');
+      return res.status(403).json('You can delete only your post');
     }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(500).json(err);
   }
 });
 
@@ -73,18 +74,31 @@ router.put('/:id/like', async (req, res) => {
   }
 });
 
-router.get('/timeline/all', async (req, res) => {
+router.get('/timeline/:userId', async (req, res) => {
   try {
-    const currentUser = await User.findById(req.body.userId);
+    const currentUser = await User.findById(req.params.userId);
     const userPosts = await Post.find({ userId: currentUser._id });
+
     const friendPosts = await Promise.all(
       currentUser.followings.map((friendId) => {
         return Post.find({ userId: friendId });
       })
     );
+
     const timeline = userPosts.concat(...friendPosts).sort((a,b) => b.updatedAt - a.updatedAt);
 
     return res.json(timeline);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+router.get('/profile/:username', async (req, res) => {
+  try {
+    const currentUser = await User.findOne({ username: req.params.username });
+    const userPosts = await Post.find({ userId: currentUser._id });
+
+    return res.json(userPosts);
   } catch (err) {
     return res.status(500).json(err);
   }
