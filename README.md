@@ -39,6 +39,5 @@ $ yarn
 - Sistema de chat realtime com socket.io
 
 ### A ser implementado:
-- Deletar todos os posts e dar unfollow quando um usuario é excluido
 - Autenticação com JWT ou oAuth
 - Notificações ao usuário ser seguido ou ter um post curtido
