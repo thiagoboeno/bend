@@ -1,36 +1,83 @@
+const http = require('http');
 const express = require('express');
-const app = express();
+const socketio = require('socket.io');
+const cors = require('cors');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const userRoute = require('./routes/users');
-const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
-const conversationRoute = require('./routes/conversations');
-const messageRoute = require('./routes/messages');
 
-dotenv.config();
+const routes = require('./routes/index');
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
 
+require('dotenv').config();
+
+// mongo connection and events handler
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () => {
   console.log('Connected to MongoDB');
 });
 
-//middleware
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB!');
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('Desconnected to MongoDB!');
+});
+
+mongoose.connection.on('error', (error) => {
+  console.log("Error connecting to MongoDB! Error: " + error);
+});
+
+// use dependencies and express json
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(morgan('common'));
 
-app.get('/', (req, res) => {
-  res.send('Welcome to Homepage');
+// api routes
+app.use('/api', routes);
+
+// websocket
+let users = [];
+
+const addUser = (userId, socketId) => {
+  !users.some((user) => user.userId === userId) && users.push({ userId, socketId });
+};
+
+const removeUser = (socketId) => {
+  users = users.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+  return users.find((user) => user.userId === userId);
+};
+
+io.on('connection', (socket) => {
+  socket.on('addUser', (userId) => {
+    addUser(userId, socket.id);
+
+    io.emit('getUsers', users);
+  });
+
+  socket.on('sendMessage', ({ senderId, receiverId, text }) => {
+    const user = getUser(receiverId);
+
+    io.to(user.socketId).emit('getMessage', {
+      senderId,
+      text,
+    });
+  });
+
+  socket.on('disconnect', () => {
+    removeUser(socket.id);
+
+    io.emit('getUsers', users);
+  });
 });
 
-app.use('/api/users', userRoute);
-app.use('/api/auth', authRoute);
-app.use('/api/posts', postRoute);
-app.use('/api/conversations', conversationRoute);
-app.use('/api/messages', messageRoute);
-
-app.listen(8000, () => {
+// run server
+server.listen(process.env.PORT || 8000, () => {
   console.log('Server is running!');
 });
