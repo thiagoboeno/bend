@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
+const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
 
 router.get('/:id', async (req, res) => {
@@ -41,7 +42,23 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     try {
-      await User.findByIdAndDelete(req.params.id);
+      const currentUser = await User.findById(req.params.id);
+
+      const users = await User.find({ $or: [{ 'followers': currentUser.id }, { 'followings': currentUser.id }] });
+      users.forEach(async user => {
+        await user.updateOne({ $pull: { followers: currentUser.id } });
+        await user.updateOne({ $pull: { followings: currentUser.id } });
+      });
+
+      const posts = await Post.find({
+        likes: { $in: [currentUser.id] },
+      });
+      posts.forEach(async post => {
+        await post.updateOne({ $pull: { likes: currentUser.id } });
+      });
+
+      await Post.deleteMany({ userId: currentUser.id });
+      await User.findByIdAndDelete(currentUser._id);
 
       return res.status(200).json('Account has been deleted');
     } catch (error) {
