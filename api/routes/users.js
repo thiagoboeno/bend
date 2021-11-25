@@ -3,9 +3,18 @@ const User = require('../models/User');
 const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
 
+const ObjectId = require('mongoose').Types.ObjectId;
+
 router.get('/:id', async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    let user = null;
+
+    if (ObjectId.isValid(req.params.id)) {
+      user = await User.findById(req.params.id);
+    } else {
+      user = await User.findOne({ username: req.params.id });
+    }
+
     const { password, updatedAt, ...other } = user._doc;
 
     return res.status(200).json(other);
@@ -66,6 +75,28 @@ router.delete('/:id', async (req, res) => {
     }
   } else {
     return res.status(403).json('You can delete only your account!');
+  }
+});
+
+router.get('/friends/:userId', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    const friends = await Promise.all(
+      user.followings.map((friendId) => {
+        return User.findById(friendId);
+      })
+    );
+
+    let friendList = [];
+
+    friends.map((friend) => {
+      const { _id, username, profilePicture } = friend;
+      friendList.push({ _id, username, profilePicture });
+    });
+    
+    res.status(200).json(friendList)
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
