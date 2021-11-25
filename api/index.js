@@ -5,11 +5,16 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const path = require("path");
 
 const routes = require('./routes/index');
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
+});
 
 require('dotenv').config();
 
@@ -37,6 +42,8 @@ app.use(helmet());
 app.use(morgan('common'));
 
 // api routes
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
+
 app.use('/api', routes);
 
 // websocket

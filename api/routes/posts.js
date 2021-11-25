@@ -98,7 +98,9 @@ router.get('/profile/:username', async (req, res) => {
     const currentUser = await User.findOne({ username: req.params.username });
     const userPosts = await Post.find({ userId: currentUser._id });
 
-    return res.json(userPosts);
+    const profilePosts = userPosts.sort((a,b) => b.updatedAt - a.updatedAt);
+
+    return res.json(profilePosts);
   } catch (err) {
     return res.status(500).json(err);
   }
