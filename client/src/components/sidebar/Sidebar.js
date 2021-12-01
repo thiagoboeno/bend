@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <aside className="p-5 border-r-2 border-solid border-gray-100">
+    <aside className="sticky top-60 h-messenger p-5 border-r-2 border-solid border-gray-100">
       <ul>
         <li className="mb-5 text-gray-600">
           <Link to="/">

@@ -8,7 +8,7 @@ const Topbar = () => {
   const { user } = useContext(AuthContext);
 
   return (
-    <div className="bg-white border-mint border-b-2 border-solid flex items-center justify-between sticky top-0 z-header">
+    <div className="bg-white border-mint border-b-4 border-solid flex items-center justify-between sticky top-0 z-header">
       <div className="container grid grid-cols-12 gap-4">
         <div className="col-span-3">
           <Link to="/">

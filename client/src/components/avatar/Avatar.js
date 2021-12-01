@@ -16,7 +16,7 @@ const Avatar = ({user, status, showName}) => {
       />
 
       { status && (
-        <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 border-2 border-solid border-white rounded-full">
+        <div className="absolute bottom-0 -left-1 w-4 h-4 border-2 border-solid border-white rounded-full">
           <span className={`${status === "online" ? "bg-green-500" : "bg-red-500"} absolute w-4 h-4 rounded-full animate-ping-slow duration-2000 opacity-75`} />
 
           <span className={`${status === "online" ? "bg-green-500" : "bg-red-500"} block w-4 h-4 rounded-full`} />

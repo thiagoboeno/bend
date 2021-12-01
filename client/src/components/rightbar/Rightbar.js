@@ -1,4 +1,3 @@
-import "./rightbar.css";
 import Avatar from "../avatar/Avatar";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -44,7 +43,7 @@ const Rightbar = ({ user }) => {
     <div className="border-l-2 border-solid border-gray-100">
       <div className="p-5">
         { user && user.username !== currentUser.username && (
-          <button className="mt-7 mb-3 py-2 px-4 bg-gradient-to-r from-mint to-blue_green text-white font-semibold hover:from-blue_green hover:to-fancy_pink" onClick={handleClick}>
+          <button className="mt-7 mb-3 py-2 px-4 bg-tiffany hover:bg-blue_green text-white font-semibold" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
           </button>
         ) }
