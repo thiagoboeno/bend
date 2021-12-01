@@ -76,7 +76,7 @@ const Share = () => {
             </label>
           </div>
 
-          <button className="py-2 px-4 bg-gradient-to-r from-mint to-blue_green text-white font-semibold hover:from-blue_green hover:to-fancy_pink" type="submit">
+          <button className="py-2 px-4 bg-tiffany hover:bg-blue_green text-white font-semibold" type="submit">
             Share
           </button>
         </form>

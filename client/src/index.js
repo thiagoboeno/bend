@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 
 import axios from 'axios';
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-console.log("🚀 ~ file: index.js ~ line 10 ~ API_URL", process.env.REACT_APP_API_URL)
 
 render(
   <React.StrictMode>
