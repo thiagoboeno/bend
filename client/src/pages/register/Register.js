@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../api";
 import { useCallback, useRef } from "react";
 import { useHistory } from "react-router";
 

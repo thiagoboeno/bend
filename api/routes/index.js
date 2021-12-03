@@ -42,4 +42,7 @@ router.use('/conversations', conversationRoute);
 const messageRoute = require('./messages');
 router.use('/messages', messageRoute);
 
+const resetPasswordRoute = require('./resetPassword');
+router.use('/reset-password', resetPasswordRoute);
+
 module.exports = router;

@@ -2,6 +2,9 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
+import SendResetEmail from "./pages/sendResetEmail/SendResetEmail";
+import ResetPassword from "./pages/resetPassword/ResetPassword";
+import Messenger from "./pages/messenger/Messenger";
 import {
   BrowserRouter,
   Switch,
@@ -10,7 +13,6 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import Messenger from "./pages/messenger/Messenger";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -28,6 +30,14 @@ const App = () => {
 
         <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
+        </Route>
+
+        <Route exact path="/reset-password">
+          <SendResetEmail />
+        </Route>
+
+        <Route path="/reset-password/:userId/:token">
+          <ResetPassword />
         </Route>
 
         <Route path="/messenger">

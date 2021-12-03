@@ -1,4 +1,4 @@
-export const LoginStart = (userCredentials) => ({
+export const LoginStart = () => ({
   type: "LOGIN_START",
 });
 
@@ -19,4 +19,8 @@ export const Follow = (userId) => ({
 export const Unfollow = (userId) => ({
   type: "UNFOLLOW",
   payload: userId,
+});
+
+export const Logout = () => ({
+  type: "LOGOUT",
 });
