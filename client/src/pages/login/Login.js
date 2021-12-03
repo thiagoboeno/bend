@@ -1,5 +1,5 @@
 import { useCallback, useContext, useRef } from "react";
-import { loginCall } from "../../apiCalls";
+import { loginCall } from "../../context/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router";
@@ -9,7 +9,8 @@ const Login = () => {
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
   const history = useHistory();
-  const handleOnClick = useCallback(() => history.push('/register'), [history]);
+  const redirectRegister = useCallback(() => history.push('/register'), [history]);
+  const resetPasswordRegister = useCallback(() => history.push('/reset-password'), [history]);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -51,17 +52,19 @@ const Login = () => {
 
           <button className="w-60 mt-12 mb-4 py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" type="submit" disabled={isFetching}>
             {isFetching ? (
-              <CircularProgress color="white" size="20px" />
+              <CircularProgress color="secondary" size="20px" />
             ) : (
               "Log In"
             )}
           </button>
 
-          <span className="text-16 text-black mb-4">Forgot Password?</span>
+          <span className="text-16 text-black mb-4 cursor-pointer" onClick={resetPasswordRegister}>
+            Forgot Password?
+          </span>
           
-          <button className="w-60 py-2 px-4 bg-mint text-white font-semibold hover:bg-green-300" onClick={handleOnClick}>
+          <button className="w-60 py-2 px-4 bg-mint text-white font-semibold hover:bg-green-300" onClick={redirectRegister}>
             {isFetching ? (
-              <CircularProgress color="white" size="20px" />
+              <CircularProgress color="secondary" size="20px" />
             ) : (
               "Create a New Account"
             )}

@@ -1,5 +1,5 @@
 import Avatar from "../avatar/Avatar";
-import axios from "axios";
+import axios from "../../api";
 import { useEffect, useState } from "react";
 
 const ChatOnline = ({ onlineUsers, currentId, setCurrentChat }) => {

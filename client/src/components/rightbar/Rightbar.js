@@ -1,7 +1,8 @@
 import Avatar from "../avatar/Avatar";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api";
 import { AuthContext } from "../../context/AuthContext";
+import { Follow, Unfollow } from "../../context/AuthActions";
 
 const Rightbar = ({ user }) => {
   const [friends, setFriends] = useState([]);
@@ -26,13 +27,13 @@ const Rightbar = ({ user }) => {
           userId: currentUser._id,
         });
 
-        dispatch({ type: "UNFOLLOW", payload: user._id });
+        dispatch(Unfollow(user._id));
       } else {
         await axios.put(`/users/${user._id}/follow`, {
           userId: currentUser._id,
         });
 
-        dispatch({ type: "FOLLOW", payload: user._id });
+        dispatch(Follow(user._id));
       }
 
       setFollowed(!followed);
@@ -51,10 +52,9 @@ const Rightbar = ({ user }) => {
         <h4 className="text-20 font-bold mb-4">Friends</h4>
 
         { friends.map((friend, index) => (
-          <div className="mb-4">
+          <div key={index} className="mb-4">
             <Avatar
               user={friend}
-              key={index}
               showName
             />
           </div>

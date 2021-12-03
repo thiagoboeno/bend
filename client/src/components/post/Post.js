@@ -1,7 +1,7 @@
 import Avatar from "../avatar/Avatar";
 import { Favorite } from "@material-ui/icons";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api";
 import { format } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -36,7 +36,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="w-full rounded-lg border border-solid border-gray-300 my-7">
+    <div className="w-full rounded-lg shadow my-7">
       <div className="p-4">
         <div className="flex items-center justify-between">
           <Avatar user={user} showName />
@@ -53,7 +53,7 @@ const Post = ({ post }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <Favorite
-              className={`w-6 h-6 mr-1 text-gray-600 cursor-pointer ${isLiked && 'liked'}`}
+              className={`w-6 h-6 mr-1 text-gray-600 cursor-pointer ${isLiked && 'text-red-500'}`}
               onClick={likeHandler}
             />
 

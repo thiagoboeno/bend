@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import Post from "../post/Post";
 import Share from "../share/Share";
-import axios from "axios";
+import axios from "../../api";
 import { AuthContext } from "../../context/AuthContext";
 
 const Feed = ({ username }) => {

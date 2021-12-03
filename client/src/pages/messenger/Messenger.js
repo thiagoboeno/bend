@@ -4,7 +4,7 @@ import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import axios from "axios";
+import axios from "../../api";
 import { io } from "socket.io-client";
 
 const Messenger = () => {
