@@ -2,6 +2,8 @@ const router = require('express').Router();
 const User = require('../models/User');
 const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 const verifyToken = require("../verifyToken");
 
 const ObjectId = require('mongoose').Types.ObjectId;
@@ -36,7 +38,7 @@ router.put('/:id', verifyToken, async (req, res) => {
     }
 
     try {
-      const user = await User.findByIdAndUpdate(req.params.id, {
+      await User.findByIdAndUpdate(req.params.id, {
         $set: req.body,
       });
 
@@ -76,6 +78,44 @@ router.delete('/:id', verifyToken, async (req, res) => {
     }
   } else {
     return res.status(403).json('You can delete only your account!');
+  }
+});
+
+const coverStorage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, 'public/images/cover');
+  },
+   
+  filename: (req, file, callback) => {
+    callback(null, `${uuidv4()}-${file.originalname}`);
+  },
+});
+
+const uploadCover = multer({ storage: coverStorage });
+router.post('/cover/upload', uploadCover.single('coverImage'), (req, res) => {
+  try {
+    return res.status(200).json(req.file.filename);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+const avatarStorage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, 'public/images/avatar');
+  },
+   
+  filename: (req, file, callback) => {
+    callback(null, `${uuidv4()}-${file.originalname}`);
+  },
+});
+
+const uploadAvatar = multer({ storage: avatarStorage });
+router.post('/avatar/upload', uploadAvatar.single('profileImage'), (req, res) => {
+  try {
+    return res.status(200).json(req.file.filename);
+  } catch (error) {
+    return res.status(500).json(error);
   }
 });
 

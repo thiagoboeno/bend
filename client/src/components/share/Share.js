@@ -23,15 +23,15 @@ const Share = () => {
     if (file) {    
       try {
         const data = new FormData();
-        data.append("postImage", file);
+        data.append('postImage', file);
 
-        const postImage = await axios.post("/upload", data);
+        const postImage = await axios.post('posts/upload', data);
         newPost.img = postImage.data;
       } catch (err) {}
     }
 
     try {
-      await axios.post("/posts", newPost);
+      await axios.post('/posts', newPost);
       window.location.reload();
     } catch (err) {}
   };
@@ -40,7 +40,7 @@ const Share = () => {
     <div className="shadow rounded-lg">
       <div className="p-4">
         <div className="flex items-center">
-          <Avatar user={user} />
+          <Avatar user={user} noLink />
 
           <input
             placeholder={"What's in your mind " + user.username + "?"}

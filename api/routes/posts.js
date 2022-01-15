@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
 const User = require('../models/User');
+const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 const verifyToken = require("../verifyToken");
 
 router.post('/', async (req, res) => {
@@ -54,6 +56,25 @@ router.delete('/:id', verifyToken, async (req, res) => {
     }
   } catch (err) {
     return res.status(500).json(err);
+  }
+});
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, 'public/images/post');
+  },
+   
+  filename: (req, file, callback) => {
+    callback(null, `${uuidv4()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage: storage });
+router.post('/upload', upload.single('postImage'), (req, res) => {
+  try {
+    return res.status(200).json(req.file.filename);
+  } catch (error) {
+    return res.status(500).json(error);
   }
 });
 

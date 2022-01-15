@@ -1,18 +1,14 @@
-import Avatar from "../avatar/Avatar";
+import AvatarDropdown from "../avatarDropdown/AvatarDropdown";
 import { Search, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
 
 const Topbar = () => {
-  const { user } = useContext(AuthContext);
-
   return (
-    <div className="bg-white border-mint border-b-4 border-solid flex items-center justify-between sticky top-0 z-header">
+    <div className="bg-white border-tiffany border-b-4 border-solid flex items-center justify-between sticky top-0 z-header">
       <div className="container grid grid-cols-12 gap-4">
         <div className="col-span-3">
           <Link to="/">
-            <span className="ml-5 text-24 font-bold text-mint cursor-pointer">Bend</span>
+            <span className="ml-5 text-24 font-bold text-tiffany cursor-pointer">Bend</span>
           </Link>
         </div>
 
@@ -45,7 +41,7 @@ const Topbar = () => {
           </div>
 
           <div className="col-span-2 justify-self-end">
-            <Avatar user={user} />
+            <AvatarDropdown />
           </div>
         </div>
       </div>

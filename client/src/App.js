@@ -1,6 +1,7 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
+import UpdateProfile from "./pages/updateProfile/UpdateProfile";
 import Register from "./pages/register/Register";
 import SendResetEmail from "./pages/sendResetEmail/SendResetEmail";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
@@ -41,11 +42,15 @@ const App = () => {
         </Route>
 
         <Route path="/messenger">
-          {!user ? <Redirect to="/" /> : <Messenger />}
+          {user ? <Messenger /> : <Register />}
+        </Route>
+
+        <Route exact path="/profile/update">
+           {user ? <UpdateProfile /> : <Register />}
         </Route>
 
         <Route path="/profile/:username">
-          <Profile />
+           {user ? <Profile /> : <Register />}
         </Route>
       </Switch>
     </BrowserRouter>

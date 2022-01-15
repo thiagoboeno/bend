@@ -7,9 +7,8 @@ import { Follow, Unfollow } from "../../context/AuthActions";
 const Rightbar = ({ user }) => {
   const [friends, setFriends] = useState([]);
   const { user: currentUser, dispatch } = useContext(AuthContext);
-  const [followed, setFollowed] = useState(
-    currentUser.followings.includes(user?._id)
-  );
+  const [follower, setFollower] = useState(false);
+  const [followed, setFollowed] = useState(false);
 
   useEffect(() => {
     const getFriends = async () => {
@@ -19,10 +18,32 @@ const Rightbar = ({ user }) => {
 
     getFriends();
   }, [user, currentUser]);
+  
+  useEffect(() => {
+    const getFollower = async () => {
+      setFollower(currentUser.followings.includes(user?._id));
+    };
+    
+    getFollower();
+  }, [user, currentUser]);
+  
+  useEffect(() => {
+    const getFollowed = async () => {
+      setFollowed(user?.followings?.includes(currentUser._id));
+    };
+
+    getFollowed();
+  }, [user, currentUser]);
+
+  const followText = () => {
+    if (followed) return 'Follow Back';
+    else if (follower) return 'Unfollow';
+    else return 'Follow';
+  };
 
   const handleClick = async () => {
     try {
-      if (followed) {
+      if (follower) {
         await axios.put(`/users/${user._id}/unfollow`, {
           userId: currentUser._id,
         });
@@ -36,7 +57,7 @@ const Rightbar = ({ user }) => {
         dispatch(Follow(user._id));
       }
 
-      setFollowed(!followed);
+      setFollower(!follower);
     } catch (err) {}
   };
 
@@ -45,7 +66,7 @@ const Rightbar = ({ user }) => {
       <div className="p-5">
         { user && user.username !== currentUser.username && (
           <button className="mt-7 mb-3 py-2 px-4 bg-tiffany hover:bg-blue_green text-white font-semibold" onClick={handleClick}>
-            {followed ? "Unfollow" : "Follow"}
+            { followText() }
           </button>
         ) }
 

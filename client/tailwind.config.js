@@ -47,7 +47,11 @@ module.exports = {
       yellow: colors.yellow,
     },
     maxHeight: {
+      '200': '200px',
       '500': '500px',
+    },
+    minHeight: {
+      '200': '200px',
     },
     height: {
       '4': '1rem',
@@ -78,7 +82,6 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         'layout-desktop': '1fr 2fr 1fr',
-        'layout-profile': '1fr 3fr',
         'profile-content': '2fr 1fr',
       },
       gridTemplateRows: {

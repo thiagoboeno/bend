@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-const Avatar = ({user, status, showName}) => {
+const Avatar = ({user, status, showName, noLink}) => {
   const avatarFolder = process.env.REACT_APP_AVATAR_IMAGES_FOLDER;
-  
+
   return (
-    <Link className="relative flex items-center" to={`/profile/${user.username}`}>
+    <Link className="relative flex items-center" to={`/profile/${user.username}`} onClick={(e) => noLink && e.preventDefault()}>
       <img
         src={
           user.profilePicture

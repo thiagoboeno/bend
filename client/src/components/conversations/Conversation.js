@@ -15,7 +15,7 @@ const Conversation = ({ conversation, currentUser }) => {
   }, [friendId]);
 
   return (
-    <div className="flex items-center border border-solid border-gray-300 cursor-pointer">
+    <div className="flex items-center p-3 border border-solid border-gray-300 rounded-lg cursor-pointer">
       { user && <Avatar user={user} showName /> }
     </div>
   );

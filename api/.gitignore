@@ -11,6 +11,11 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # Dependency directories
 node_modules/
 
+# Public archives
+public/
+!public/images/avatar/default
+!public/images/cover/default
+
 # Optional npm cache directory
 .npm
 
