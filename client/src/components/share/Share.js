@@ -64,7 +64,7 @@ const Share = () => {
             <label htmlFor="file" className="flex items-center cursor-pointer">
               <PermMedia htmlColor="tomato" className="mr-2" />
               
-              <span className="text-16">Photo or Video</span>
+              <span className="text-16">Photo</span>
               
               <input
                 id="file"

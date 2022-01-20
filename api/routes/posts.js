@@ -3,7 +3,7 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
-const verifyToken = require("../verifyToken");
+const verifyToken = require("../middleware/verifyToken");
 
 router.post('/', async (req, res) => {
   const newPost = new Post(req.body);

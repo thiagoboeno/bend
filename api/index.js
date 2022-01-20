@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -36,6 +37,8 @@ mongoose.connection.on('error', (error) => {
 });
 
 // use dependencies and express json
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 app.use(helmet());

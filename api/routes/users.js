@@ -4,7 +4,7 @@ const Post = require('../models/Post');
 const bcrypt = require('bcrypt');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
-const verifyToken = require("../verifyToken");
+const verifyToken = require("../middleware/verifyToken");
 
 const ObjectId = require('mongoose').Types.ObjectId;
 

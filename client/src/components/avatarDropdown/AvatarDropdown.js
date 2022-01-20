@@ -23,33 +23,23 @@ const AvatarDropdown = () => {
         <Avatar user={user} noLink />
       </button>
 
-      <ul class={`absolute right-0 mt-2 w-56 rounded-md shadow bg-white divide-y divide-gray-200 outline-none origin-top-right transform transition-transform duration-500 ${showDropdown ? 'scale-100' : 'scale-0'}`}>
-        <li class="py-1">
-          <Link class="flex flex-col text-gray-700 px-4 py-2 text-16 hover:bg-gray-200" to={`/profile/${user.username}`}>
+      <ul className={`absolute right-0 mt-2 w-56 rounded-md shadow bg-white divide-y divide-gray-200 outline-none origin-top-right transform transition-transform duration-500 ${showDropdown ? 'scale-100' : 'scale-0'}`}>
+        <li className="py-1">
+          <Link className="flex flex-col text-gray-700 px-4 py-2 text-16 hover:bg-gray-200" to={`/profile/${user.username}`}>
             { user.username }
             
             <span className="text-12 text-gray-400">View Profile</span>
           </Link>
         </li>
 
-        <li class="py-1">
-           <Link class="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" to="/profile/update">
+        <li className="py-1">
+           <Link className="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" to="/profile/update">
             Update Profile
           </Link>
         </li>
 
-        {/* <li class="py-1">
-          <Link class="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" to="">
-            Archive
-          </Link>
-
-          <Link class="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" to="">
-            Move
-          </Link>
-        </li> */}
-
-        <li class="py-1">
-          <span class="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" onClick={logout}>
+        <li className="py-1">
+          <span className="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" onClick={logout}>
             Logout
           </span>
         </li>

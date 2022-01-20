@@ -13,6 +13,7 @@ const UpdateProfile = () => {
   const { user: currentUser, dispatch } = useContext(AuthContext);
   const [user, setUser] = useState({});
   const [username, setUsername] = useState('');
+  const [birthdate, setBirthdate] = useState('');
   const [description, setDescription] = useState('');
   const [coverPicture, setCoverPicture] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
@@ -54,6 +55,7 @@ const UpdateProfile = () => {
     const userData = {
       userId: user._id,
       username: username,
+      birthdate: birthdate,
       desc: description,
     };
 
@@ -148,10 +150,17 @@ const UpdateProfile = () => {
                 value={username}
               />
 
+              <input
+                placeholder="Birthdate"
+                className="w-full h-10 mb-6 px-4 rounded-3xl bg-gray-100 outline-none"
+                type="date"
+                onChange={(e) => setBirthdate(e.target.value)}
+                value={birthdate}
+              />
+
               <textarea
                 placeholder="Description"
                 className="w-full min-h-200 max-h-200 mb-6 px-4 py-4 rounded-3xl bg-gray-100 outline-none"
-                required
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
               />
