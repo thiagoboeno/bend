@@ -1,13 +1,16 @@
-import { useCallback, useContext, useRef } from "react";
-import { loginCall } from "../../context/apiCalls";
-import { AuthContext } from "../../context/AuthContext";
+import { useCallback, useState } from "react";
+import { loginCall } from "../../redux/apiCalls";
+import { useSelector, useDispatch } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router";
 
 const Login = () => {
-  const email = useRef();
-  const password = useRef();
-  const { isFetching, dispatch } = useContext(AuthContext);
+  const isFetching = useSelector((state) => state.user.isFetching);
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const history = useHistory();
   const redirectRegister = useCallback(() => history.push('/register'), [history]);
   const resetPasswordRegister = useCallback(() => history.push('/reset-password'), [history]);
@@ -16,8 +19,8 @@ const Login = () => {
     e.preventDefault();
 
     loginCall(
-      { email: email.current.value, password: password.current.value },
-      dispatch
+      dispatch,
+      { email: email, password: password }
     );
   };
 
@@ -34,20 +37,22 @@ const Login = () => {
 
         <form className="bg-white flex flex-col items-center py-16 px-8 shadow rounded-3xl" onSubmit={handleClick}>
           <input
+            className="w-full h-10 mb-6 pl-4 rounded-3xl bg-gray-100 outline-none"
             placeholder="Email"
             type="email"
             required
-            ref={email}
-            className="w-full h-10 mb-6 pl-4 rounded-3xl bg-gray-100 outline-none"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
+            className="w-full h-10 pl-4 rounded-3xl bg-gray-100 outline-none"
             placeholder="Password"
             type="password"
-            required
             minLength="6"
-            ref={password}
-            className="w-full h-10 pl-4 rounded-3xl bg-gray-100 outline-none"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button className="w-60 mt-12 mb-4 py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" type="submit" disabled={isFetching}>

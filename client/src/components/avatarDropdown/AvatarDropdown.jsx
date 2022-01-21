@@ -1,20 +1,21 @@
 import Avatar from "../avatar/Avatar";
-// import { Search, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { Logout } from "../../context/AuthActions";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/userReducer";
 
 const AvatarDropdown = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleClick = () => {
     setShowDropdown(!showDropdown);
   };
 
-  const logout = () => {
-    dispatch(Logout());
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -39,7 +40,7 @@ const AvatarDropdown = () => {
         </li>
 
         <li className="py-1">
-          <span className="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" onClick={logout}>
+          <span className="text-gray-700 block px-4 py-2 text-16 hover:bg-gray-200" onClick={handleLogout}>
             Logout
           </span>
         </li>

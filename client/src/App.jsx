@@ -12,11 +12,10 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { useSelector } from "react-redux";
 
 const App = () => {
-  const { user } = useContext(AuthContext);
+  const user = useSelector((state) => state.user.currentUser);
   
   return (
     <BrowserRouter>
@@ -55,6 +54,6 @@ const App = () => {
       </Switch>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

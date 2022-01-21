@@ -1,22 +1,17 @@
 import { useState } from "react";
-import { useParams, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import axios from "../../api";
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const userId = useParams().userId;
-  const token = useParams().token;
+  const [email, setEmail] = useState('');
   const history = useHistory();
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     try {
-      if (password === confirmPassword) {  
-        await axios.post(`/reset-password/${userId}/${token}`, { password: password });
-        history.push('/login');      
-      } else {}
+      await axios.post("/reset-password", { email: email });
+      history.push('/login');      
     } catch (err) {}
   };
 
@@ -33,25 +28,16 @@ const ResetPassword = () => {
 
         <form className="bg-white flex flex-col items-center py-16 px-8 shadow rounded-3xl" onSubmit={handleClick}>
           <input
-            placeholder="Password"
-            type="password"
-            className="w-full h-10 pl-4 mb-4 rounded-3xl bg-gray-100 outline-none"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <input
-            placeholder="Confirm Password"
-            type="password"
             className="w-full h-10 pl-4 rounded-3xl bg-gray-100 outline-none"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Email"
+            type="email"
             required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
-          <button className="w-60 mt-12 mb-4 py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" type="submit">
-            Send reset link
+          <button className="w-60 mt-12 py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" type="submit">
+            Send Reset Link
           </button>
         </form>
       </div>

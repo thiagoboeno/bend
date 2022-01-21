@@ -3,13 +3,14 @@ import {
   PermMedia,
   Cancel,
 } from "@material-ui/icons";
-import { useContext, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "../../api";
 
 const Share = () => {
-  const { user } = useContext(AuthContext);
-  const desc = useRef();
+  const user = useSelector((state) => state.user.currentUser);
+
+  const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
 
   const submitHandler = async (e) => {
@@ -17,7 +18,7 @@ const Share = () => {
 
     const newPost = {
       userId: user._id,
-      desc: desc.current.value,
+      desc: description,
     };
 
     if (file) {    
@@ -45,7 +46,8 @@ const Share = () => {
           <input
             placeholder={"What's in your mind " + user.username + "?"}
             className="w-full ml-4 border-none"
-            ref={desc}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 

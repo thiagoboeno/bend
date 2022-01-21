@@ -1,16 +1,18 @@
 import Avatar from "../avatar/Avatar";
 import { Favorite } from "@material-ui/icons";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../api";
 import { format } from "timeago.js";
-import { AuthContext } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 
 const Post = ({ post }) => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
+  
   const postImageFolder = process.env.REACT_APP_POST_IMAGES_FOLDER;
-  const { user: currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));

@@ -1,12 +1,14 @@
 import Avatar from "../avatar/Avatar";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../api";
-import { AuthContext } from "../../context/AuthContext";
-import { Follow, Unfollow } from "../../context/AuthActions";
+import { useSelector, useDispatch } from "react-redux";
+import { follow, unfollow } from "../../redux/userReducer";
 
 const Rightbar = ({ user }) => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+  
   const [friends, setFriends] = useState([]);
-  const { user: currentUser, dispatch } = useContext(AuthContext);
   const [follower, setFollower] = useState(false);
   const [followed, setFollowed] = useState(false);
 
@@ -48,13 +50,13 @@ const Rightbar = ({ user }) => {
           userId: currentUser._id,
         });
 
-        dispatch(Unfollow(user._id));
+        dispatch(unfollow(user._id));
       } else {
         await axios.put(`/users/${user._id}/follow`, {
           userId: currentUser._id,
         });
 
-        dispatch(Follow(user._id));
+        dispatch(follow(user._id));
       }
 
       setFollower(!follower);

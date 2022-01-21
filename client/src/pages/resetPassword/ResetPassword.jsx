@@ -1,17 +1,22 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useParams, useHistory } from "react-router";
 import axios from "../../api";
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const userId = useParams().userId;
+  const token = useParams().token;
   const history = useHistory();
 
   const handleClick = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post("/reset-password", { email: email });
-      history.push('/login');      
+      if (password === confirmPassword) {  
+        await axios.post(`/reset-password/${userId}/${token}`, { password: password });
+        history.push('/login');      
+      } else {}
     } catch (err) {}
   };
 
@@ -28,16 +33,25 @@ const ResetPassword = () => {
 
         <form className="bg-white flex flex-col items-center py-16 px-8 shadow rounded-3xl" onSubmit={handleClick}>
           <input
-            placeholder="Email"
-            type="email"
-            className="w-full h-10 pl-4 rounded-3xl bg-gray-100 outline-none"
-            value={email}
-            onInput={(e) => setEmail(e.target.value)}
+            className="w-full h-10 pl-4 mb-4 rounded-3xl bg-gray-100 outline-none"
+            placeholder="Password"
+            type="password"
             required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="w-60 mt-12 py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" type="submit">
-            Send Reset Link
+          <input
+            className="w-full h-10 pl-4 rounded-3xl bg-gray-100 outline-none"
+            placeholder="Confirm Password"
+            type="password"
+            required
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+
+          <button className="w-60 mt-12 mb-4 py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" type="submit">
+            Send reset link
           </button>
         </form>
       </div>

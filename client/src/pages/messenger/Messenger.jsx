@@ -2,20 +2,22 @@ import Topbar from "../../components/topbar/Topbar";
 import Conversation from "../../components/conversations/Conversation";
 import Message from "../../components/message/Message";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
-import { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "../../api";
 import { io } from "socket.io-client";
 
 const Messenger = () => {
+  const user = useSelector((state) => state.user.currentUser);
+  
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+
   const socket = useRef();
-  const { user } = useContext(AuthContext);
   const scrollRef = useRef();
 
   useEffect(() => {
@@ -131,8 +133,8 @@ const Messenger = () => {
                 <input
                   className="w-10/12 h-full pl-4 rounded-3xl bg-gray-100 outline-none"
                   placeholder="write something..."
-                  onChange={(e) => setNewMessage(e.target.value)}
                   value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
                 />
 
                 <button className="py-2 px-4 bg-tiffany text-white font-semibold hover:bg-blue_green" onClick={handleSubmit}>

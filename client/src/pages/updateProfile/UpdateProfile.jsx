@@ -2,21 +2,24 @@ import Topbar from "../../components/topbar/Topbar";
 import {
   Edit,
 } from "@material-ui/icons";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
-import { UpdateUser } from "../../context/AuthActions";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateUser } from "../../redux/userReducer";
 import axios from "../../api";
 
 const UpdateProfile = () => {
-  const avatarFolder = process.env.REACT_APP_AVATAR_IMAGES_FOLDER;
-  const coverFolder = process.env.REACT_APP_COVER_IMAGES_FOLDER;
-  const { user: currentUser, dispatch } = useContext(AuthContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
   const [user, setUser] = useState({});
   const [username, setUsername] = useState('');
   const [birthdate, setBirthdate] = useState('');
   const [description, setDescription] = useState('');
   const [coverPicture, setCoverPicture] = useState(null);
   const [profilePicture, setProfilePicture] = useState(null);
+
+  const avatarFolder = process.env.REACT_APP_AVATAR_IMAGES_FOLDER;
+  const coverFolder = process.env.REACT_APP_COVER_IMAGES_FOLDER;
   
   useEffect(() => {
     const fetchUser = async () => {
@@ -81,7 +84,7 @@ const UpdateProfile = () => {
 
     try {
       await axios.put(`/users/${currentUser._id}`, userData);
-      dispatch(UpdateUser(userData));
+      dispatch(updateUser(userData));
     } catch (err) {}
   };
 
@@ -138,31 +141,31 @@ const UpdateProfile = () => {
               <input
                 placeholder="Email"
                 className="w-full h-10 mb-6 pl-4 rounded-3xl bg-gray-100 outline-none"
-                value={user.email}
                 disabled
+                value={user.email}
               />
               
               <input
-                placeholder="Username"
                 className="w-full h-10 mb-6 pl-4 rounded-3xl bg-gray-100 outline-none"
+                placeholder="Username"
                 required
-                onChange={(e) => setUsername(e.target.value)}
                 value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
 
               <input
-                placeholder="Birthdate"
                 className="w-full h-10 mb-6 px-4 rounded-3xl bg-gray-100 outline-none"
+                placeholder="Birthdate"
                 type="date"
-                onChange={(e) => setBirthdate(e.target.value)}
                 value={birthdate}
+                onChange={(e) => setBirthdate(e.target.value)}
               />
 
               <textarea
-                placeholder="Description"
                 className="w-full min-h-200 max-h-200 mb-6 px-4 py-4 rounded-3xl bg-gray-100 outline-none"
-                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Description"
                 value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
 
               <button className="w-60 py-2 px-4 bg-mint text-white font-semibold hover:bg-green-300" type="submit">
