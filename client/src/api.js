@@ -3,8 +3,7 @@ import store from './redux/store';
 import { logout } from "./redux/userReducer";
 
 const { dispatch } = store;
-const user = JSON.parse(localStorage.getItem('user'));
-const token = user?.accessToken;
+const token = localStorage.getItem('persist:token');
 
 const axiosSetup = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -14,8 +13,16 @@ const axiosSetup = axios.create({
 axiosSetup.interceptors.response.use(
   response => response,
   error => {
-    if (error.response.status === 401) {
-      dispatch(logout());
+    switch (error.response.status) {
+      case 401:
+      case 403:
+        
+        dispatch(logout());
+        localStorage.removeItem('persist:token');
+        break;
+    
+      default:
+        break;
     }
 
     return Promise.reject(error);

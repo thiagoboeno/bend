@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
       { expiresIn: "5d" }
     );
 
-    const { password, ...other } = user._doc;
+    const { password, updatedAt, ...other } = user._doc;
 
     return res.status(200).json({ ...other, accessToken });
   } catch (error) {

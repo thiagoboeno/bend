@@ -12,10 +12,26 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { updateUser } from "./redux/userReducer";
+import axios from "./api";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (localStorage.getItem('persist:token') && !user) {
+        const res = await axios.get('/users');
+
+        dispatch(updateUser(res.data));
+      }
+    };
+
+    fetchUser();
+  }, [dispatch, user]);
   
   return (
     <BrowserRouter>

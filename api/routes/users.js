@@ -8,6 +8,18 @@ const verifyToken = require("../middleware/verifyToken");
 
 const ObjectId = require('mongoose').Types.ObjectId;
 
+router.get('/', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    const { password, updatedAt, ...other } = user._doc;
+
+    return res.status(200).json(other);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     let user = null;

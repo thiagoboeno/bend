@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const socketio = require('socket.io');
 const cors = require('cors');
-const mongoose = require('mongoose');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require("path");
@@ -18,23 +17,7 @@ const io = socketio(server, {
 });
 
 require('dotenv').config();
-
-// mongo connection and events handler
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () => {
-  console.log('Connected to MongoDB');
-});
-
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB!');
-});
-
-mongoose.connection.on('disconnected', () => {
-  console.log('Desconnected to MongoDB!');
-});
-
-mongoose.connection.on('error', (error) => {
-  console.log("Error connecting to MongoDB! Error: " + error);
-});
+require("./config/database").connect();
 
 // use dependencies and express json
 app.use(bodyParser.json());
