@@ -26,9 +26,6 @@ $ yarn serve
 
 # Buildando o projeto e minificando para produção
 $ yarn build
-
-# Linters
-$ yarn lint
 ````
 
 
