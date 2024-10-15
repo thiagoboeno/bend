@@ -18,6 +18,8 @@ Tenha o [Node.js](https://nodejs.org/en/) e o [Npm](https://www.npmjs.com/) ou [
 Com os demais instalados, as dependencias do `package.json` precisam ser instaladas a partir do commando:
 
 ``` bash
+# Acessar as pastas API e Client, e executar os comandos em ambas, separadamente
+
 # instalando as dependências
 $ yarn
 
