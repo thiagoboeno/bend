@@ -11,23 +11,28 @@
 Bend é um sistema/interface de rede social, incluido sistema de (des)seguir. postagens, chat e etc, feito com Express.js e React
 
 
-
 ## Instalação
 
 Tenha o [Node.js](https://nodejs.org/en/) e o [Npm](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/) instalados.
 
 Com os demais instalados, as dependencias do `package.json` precisam ser instaladas a partir do commando:
 
-#### NPM
-```bash
+``` bash
+# instalando as dependências
 $ npm install
-```
-
-#### YARN
-```bash
+# or use
 $ yarn
-```
 
+# Executando/compilando o projeto (localhost:8080)
+$ npm run dev
+# or use
+$ yarn serve
+
+# Buildando o projeto e minificando para produção
+$ npm run build
+# or use
+$ yarn build
+```
 
 
 ### Implementado:
