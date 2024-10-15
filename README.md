@@ -19,20 +19,17 @@ Com os demais instalados, as dependencias do `package.json` precisam ser instala
 
 ``` bash
 # instalando as dependências
-$ npm install
-# or use
 $ yarn
 
 # Executando/compilando o projeto (localhost:8080)
-$ npm run dev
-# or use
 $ yarn serve
 
 # Buildando o projeto e minificando para produção
-$ npm run build
-# or use
 $ yarn build
-```
+
+# Linters
+$ yarn lint
+````
 
 
 ### Implementado:
